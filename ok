@@ -1,1 +1,37 @@
 index.html:
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OKörkortsteori - Starta Quiz</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Välkommen till OKörkortsteori</h1>
+        <p>Testa dina kunskaper om B-körkort med vårt quiz.</p>
+        <h2>Välj antal frågor:</h2>
+        <form id="question-form">
+            <label><input type="radio" name="numQuestions" value="10"> 10 frågor</label><br>
+            <label><input type="radio" name="numQuestions" value="20"> 20 frågor</label><br>
+            <label><input type="radio" name="numQuestions" value="50"> 50 frågor</label><br>
+            <label><input type="radio" name="numQuestions" value="65"> 65 frågor</label><br>
+            <label><input type="radio" name="numQuestions" value="70"> 70 frågor</label><br>
+            <button type="button" onclick="startQuiz()">Starta Quiz</button>
+        </form>
+    </div>
+
+    <script>
+        function startQuiz() {
+            var selectedOption = document.querySelector('input[name="numQuestions"]:checked');
+            if (selectedOption) {
+                var numQuestions = selectedOption.value;
+                window.location.href = `quiz.html?questions=${numQuestions}`;
+            } else {
+                alert("Välj antal frågor för att fortsätta!");
+            }
+        }
+    </script>
+</body>
+</html>
