@@ -1,1 +1,85 @@
 quiz.js:
+const questions = [
+    {
+        question: "1. Vad betyder en gul heldragen linje vid vägkanten?",
+        options: {
+            A: "Förbud att stanna eller parkera",
+            B: "Förbud att parkera, men tillåtet att stanna kort",
+            C: "Förbud att stanna, men tillåtet att parkera",
+            D: "Inget av ovanstående"
+        },
+        correct: "B"
+    },
+    {
+        question: "2. Vilken hastighet gäller på en huvudled om ingen skylt finns?",
+        options: {
+            A: "30 km/h",
+            B: "50 km/h",
+            C: "70 km/h",
+            D: "90 km/h"
+        },
+        correct: "B"
+    },
+    // Fortsätt med fler frågor här (totalt 200 frågor)
+    // Exempel på sista fråga:
+    {
+        question: "200. Vad är den högsta tillåtna promillegränsen för rattfylleri i Sverige?",
+        options: {
+            A: "0.2 promille",
+            B: "0.5 promille",
+            C: "1.0 promille",
+            D: "2.0 promille"
+        },
+        correct: "A"
+    }
+];
+
+function getUrlParams() {
+    const params = new URLSearchParams(window.location.search);
+    return {
+        questions: parseInt(params.get('questions')) || 10
+    };
+}
+
+function loadQuestions() {
+    const params = getUrlParams();
+    const questionContainer = document.getElementById('questionContainer');
+    const selectedQuestions = questions.slice(0, params.questions);
+
+    selectedQuestions.forEach((q, index) => {
+        const questionDiv = document.createElement('div');
+        questionDiv.className = 'question';
+
+        // Fråga
+        const questionTitle = document.createElement('h3');
+        questionTitle.textContent = q.question;
+        questionDiv.appendChild(questionTitle);
+
+        // Alternativ
+        Object.keys(q.options).forEach(option => {
+            const label = document.createElement('label');
+            label.innerHTML = `<input type="radio" name="question${index}" value="${option}"> ${option}) ${q.options[option]}`;
+            questionDiv.appendChild(label);
+            questionDiv.appendChild(document.createElement('br'));
+        });
+
+        questionContainer.appendChild(questionDiv);
+    });
+}
+
+function submitQuiz() {
+    let score = 0;
+    const params = getUrlParams();
+    const selectedQuestions = questions.slice(0, params.questions);
+
+    selectedQuestions.forEach((q, index) => {
+        const userAnswer = document.querySelector(`input[name="question${index}"]:checked`);
+        if (userAnswer && userAnswer.value === q.correct) {
+            score++;
+        }
+    });
+
+    alert(`Du fick ${score} av ${selectedQuestions.length} rätt!`);
+}
+
+window.onload = loadQuestions;
