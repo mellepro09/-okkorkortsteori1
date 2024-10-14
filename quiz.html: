@@ -1,1 +1,21 @@
 quiz.html:
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Körkortsquiz</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Körkortsquiz</h1>
+        <form id="quizForm">
+            <div id="questionContainer"></div>
+            <button type="button" onclick="submitQuiz()">Skicka in svar</button>
+        </form>
+    </div>
+
+    <script src="quiz.js"></script>
+</body>
+</html>
